@@ -1494,6 +1494,8 @@ class Image:
     def split(self):
         "Split image into bands"
 
+        self.load()
+
         if self.im.bands == 1:
             ims = [self.copy()]
         else:
