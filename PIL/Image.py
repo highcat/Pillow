@@ -51,9 +51,7 @@ try:
     # the "open" function to identify files, but you cannot load
     # them.  Note that other modules should not refer to _imaging
     # directly; import Image and use the Image.core variable instead.
-    import _imaging
-    core = _imaging
-    del _imaging
+    import _imaging as core
 except ImportError, v:
     core = _imaging_not_installed()
     if str(v)[:20] == "Module use of python" and warnings:
@@ -1495,12 +1493,10 @@ class Image:
         "Split image into bands"
 
         self.load()
-
         if self.im.bands == 1:
             ims = [self.copy()]
         else:
             ims = []
-            self.load()
             for i in range(self.im.bands):
                 ims.append(self._new(self.im.getband(i)))
         return tuple(ims)
